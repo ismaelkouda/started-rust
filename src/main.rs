@@ -1,7 +1,9 @@
 fn main() {
-    println!("{}", is_even(22))
+    let str = String::from("kouda");
+    let len = get_str_len(str);
+    println!("{}", len);
 }
 
-fn is_even(num: u32) -> bool {
-    return num % 2 == 0;
+fn get_str_len(str: String) -> usize {
+    str.chars().count()
 }
