@@ -1,22 +1,35 @@
-enum Shape {
-    Circle(f32),
-    Rectangle(f32, f32),
+enum OptionExample {
+    Salutation,
+    Name(String),
+    Some(u32, u32, u32, u32),
+    Subtraction(u32, u32, u32),
+    Multiplication(u32, u32),
+}
+
+fn option_example_match(option_example: OptionExample) {
+    match option_example {
+        OptionExample::Salutation => print!("Hello world"),
+        OptionExample::Name(name) => print!("Hello {}", name),
+        OptionExample::Some(a, b, c, d) => print!("{}", a + b + c + d),
+        OptionExample::Subtraction(a, b, c) => print!("{}", a - b - c),
+        OptionExample::Multiplication(a, b) => print!("{}", a * b),
+    }
 }
 
 fn main() {
-    let rect_value = Shape::Rectangle(1.0, 2.0);
-    let circle_value = Shape::Circle(1.0);
+    let say_my_name = OptionExample::Name(String::from("Ismael"));
+    option_example_match(say_my_name);
 
-    let rect_area = calculate_area(rect_value);
-    let circle_area = calculate_area(circle_value);
-    println!("Rectangle area: {}", rect_area);
-    println!("Circle area: {}", circle_area);
+    match option_example("ismael") {
+        Some(name) => println!("{}", name),
+        None => println!("No name"),
+    }
 }
 
-fn calculate_area(shape: Shape) -> f32 {
-    let area = match shape {
-        Shape::Circle(a) => 3.14 * a * a,
-        Shape::Rectangle(a, b) => a * b,
-    };
-    area
+fn option_example(name: &str) -> Option<String> {
+    if name == "ismael" {
+        Some(String::from("ismael"))
+    } else {
+        None
+    }
 }
