@@ -1,35 +1,20 @@
-enum OptionExample {
-    Salutation,
-    Name(String),
-    Some(u32, u32, u32, u32),
-    Subtraction(u32, u32, u32),
-    Multiplication(u32, u32),
-}
-
-fn option_example_match(option_example: OptionExample) {
-    match option_example {
-        OptionExample::Salutation => print!("Hello world"),
-        OptionExample::Name(name) => print!("Hello {}", name),
-        OptionExample::Some(a, b, c, d) => print!("{}", a + b + c + d),
-        OptionExample::Subtraction(a, b, c) => print!("{}", a - b - c),
-        OptionExample::Multiplication(a, b) => print!("{}", a * b),
-    }
-}
+use std::fs::read_to_string;
+use std::io::Error;
 
 fn main() {
-    let say_my_name = OptionExample::Name(String::from("Ismael"));
-    option_example_match(say_my_name);
-
-    match option_example("ismael") {
-        Some(name) => println!("{}", name),
-        None => println!("No name"),
+    let file_path = String::from("a.text");
+    let answer = read_from_file_kirat(file_path);
+    match answer {
+        Ok(data) => println!("{}", data),
+        Err(e) => println!("Error: {}", e),
     }
 }
 
-fn option_example(name: &str) -> Option<String> {
-    if name == "ismael" {
-        Some(String::from("ismael"))
-    } else {
-        None
+fn read_from_file_kirat(file_path: String) -> Result<String, Error> {
+    let result = read_to_string(file_path);
+
+    match result {
+        Ok(data) => Ok(data),
+        Err(e) => Err(e),
     }
 }
